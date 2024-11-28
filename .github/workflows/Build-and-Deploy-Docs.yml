@@ -7,11 +7,15 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-and-deploy:
+  Build-and-Deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout current repository
         uses: actions/checkout@main
+
+      - name: Delete old files
+        run: |
+          rm -rf ${{ github.workspace }}/* !(.github)
         
       - name: Checkout Levilde-Luminia-Wiki
         uses: actions/checkout@main
@@ -35,7 +39,6 @@ jobs:
 
       - name: Copy dist files
         run: |
-          rm -rf ${{ github.workspace }}/*
           cp -r ${{ github.workspace }}/Levilde-Luminia-Wiki/src/.vuepress/dist/* ${{ github.workspace }}
           rm -rf ${{ github.workspace }}/Levilde-Luminia-Wiki
           cd ${{ github.workspace }}
