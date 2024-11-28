@@ -9,6 +9,8 @@ on:
 jobs:
   Build-and-Deploy:
     runs-on: ubuntu-latest
+    container:
+      image: shangzheny/rth-host-helper:latest
     steps:
       - name: Checkout current repository
         uses: actions/checkout@main
