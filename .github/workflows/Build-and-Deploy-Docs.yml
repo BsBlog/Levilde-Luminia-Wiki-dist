@@ -13,10 +13,12 @@ jobs:
       - name: Checkout current repository
         uses: actions/checkout@main
         
-      - name: Clone private repository
-        run: gh repo clone BsBlog/Levilde-Luminia-Wiki
-        env:
-          GH_TOKEN: ${{ secrets.PAT }}
+      - name: Checkout Levilde-Luminia-Wiki
+        uses: actions/checkout@main
+        with:
+          repository: BsBlog/Levilde-Luminia-Wiki
+          token: ${{ secrets.PAT }} # `GH_PAT` is a secret that contains your PAT
+          path: Levilde-Luminia-Wiki
           
       - name: Setup pnpm
         uses: pnpm/action-setup@master
@@ -33,8 +35,8 @@ jobs:
 
       - name: Copy dist files
         run: |
-          cp -r Levilde-Luminia-Wiki/src/.vuepress/dist/* current-repo/
-          cd current-repo
+          cp -r Levilde-Luminia-Wiki/src/.vuepress/dist/* ${{ GITHUB_WORKSPACE }}
+          cd ${{ GITHUB_WORKSPACE }}
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           git add .
