@@ -35,6 +35,7 @@ jobs:
 
       - name: Copy dist files
         run: |
+          rm -rf ${{ github.workspace }}/*
           cp -r Levilde-Luminia-Wiki/src/.vuepress/dist/* ${{ github.workspace }}
           rm -rf Levilde-Luminia-Wiki
           cd ${{ github.workspace }}
@@ -49,7 +50,7 @@ jobs:
         env:
           RTH_API_KEY: ${{ secrets.RTH_API_KEY }}
         with:
-          site: "wiki.itsmyduty.top"  # 修改 example 为您的网站名称
+          site: "levilde-luminia-wiki.rth5.com"  # 修改 example 为您的网站名称
           outdir: "."  # 修改 dist 为您的构建输出目录
 
       - name: Delete old workflow run
