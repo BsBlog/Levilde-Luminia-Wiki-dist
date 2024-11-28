@@ -35,8 +35,8 @@ jobs:
 
       - name: Copy dist files
         run: |
-          cp -r Levilde-Luminia-Wiki/src/.vuepress/dist/* ${{ GITHUB_WORKSPACE }}
-          cd ${{ GITHUB_WORKSPACE }}
+          cp -r Levilde-Luminia-Wiki/src/.vuepress/dist/* ${{ github.workspace }}
+          cd ${{ github.workspace }}
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           git add .
@@ -50,3 +50,11 @@ jobs:
         with:
           site: "wiki.itsmyduty.top"  # 修改 example 为您的网站名称
           outdir: "."  # 修改 dist 为您的构建输出目录
+
+      - name: Delete old workflow run
+        uses: Mattraks/delete-workflow-runs@main
+        with:
+          token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          retain_days: 0
+          keep_minimum_runs: 0
