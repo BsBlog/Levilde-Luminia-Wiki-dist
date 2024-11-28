@@ -44,6 +44,7 @@ jobs:
         run: pnpm docs:build
 
       - name: Copy dist files
+        continue-on-error: true
         run: |
           cp -r ${{ github.workspace }}/Levilde-Luminia-Wiki/src/.vuepress/dist/* ${{ github.workspace }}
           rm -rf ${{ github.workspace }}/Levilde-Luminia-Wiki
