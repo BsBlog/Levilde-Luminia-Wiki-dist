@@ -15,7 +15,8 @@ jobs:
 
       - name: Delete old files
         run: |
-          rm -rf ${{ github.workspace }}/* !(.github)
+          cd ${{ github.workspace }}
+          find * | grep -v ".github" | xargs rm -rf
         
       - name: Checkout Levilde-Luminia-Wiki
         uses: actions/checkout@main
