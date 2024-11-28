@@ -17,7 +17,7 @@ jobs:
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          find ${{ github.workspace }}/ -mindepth 1 -not -path "*/.git/*" -not -path "*/.github/*" | xargs git rm
+          find ${{ github.workspace }}/ -mindepth 1 -not -path "*/.git/*" -not -path "*/.github/*" | xargs git rm -rf
           git commit -m "docs: Delete old files"
           git push origin main
         
