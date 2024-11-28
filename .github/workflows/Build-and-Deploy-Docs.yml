@@ -36,6 +36,7 @@ jobs:
       - name: Copy dist files
         run: |
           cp -r Levilde-Luminia-Wiki/src/.vuepress/dist/* ${{ github.workspace }}
+          rm -rf Levilde-Luminia-Wiki
           cd ${{ github.workspace }}
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
