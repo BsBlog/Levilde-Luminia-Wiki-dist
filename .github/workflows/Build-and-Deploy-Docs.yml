@@ -1,0 +1,50 @@
+name: Build and Deploy Docs
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout current repository
+        uses: actions/checkout@main
+        
+      - name: Clone private repository
+        run: gh repo clone BsBlog/Levilde-Luminia-Wiki
+        env:
+          GH_TOKEN: ${{ secrets.PAT }}
+          
+      - name: Setup pnpm
+        uses: pnpm/action-setup@master
+        with:
+          version: latest
+          
+      - name: Install dependencies
+        working-directory: Levilde-Luminia-Wiki
+        run: pnpm install
+
+      - name: Build docs
+        working-directory: Levilde-Luminia-Wiki
+        run: pnpm docs:build
+
+      - name: Copy dist files
+        run: |
+          cp -r Levilde-Luminia-Wiki/src/.vuepress/dist/* current-repo/
+          cd current-repo
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add .
+          git commit -m "docs: update documentation"
+          git push origin main
+
+      - name: Deploy to Retinbox Web Hosting
+        uses: rthsoftware/host-auto-deploy@master
+        env:
+          RTH_API_KEY: ${{ secrets.RTH_API_KEY }}
+        with:
+          site: "wiki.itsmyduty.top"  # 修改 example 为您的网站名称
+          outdir: "."  # 修改 dist 为您的构建输出目录
