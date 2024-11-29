@@ -12,6 +12,8 @@ jobs:
     steps:
       - name: Checkout current repository
         uses: actions/checkout@main
+        with:
+         fetch-depth: 0
 
       - name: Delete old files
         continue-on-error: true
