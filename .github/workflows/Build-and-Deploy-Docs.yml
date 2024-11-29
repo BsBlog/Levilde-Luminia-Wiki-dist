@@ -23,6 +23,13 @@ jobs:
           git commit -m "docs: Delete old files"
           git push origin main
 
+      - name: Deleted files on FTP Server
+        uses: SamKirkland/FTP-Deploy-Action@master
+        with:
+         server: ${{ secrets.FTP_SERVER }}
+         username: ${{ secrets.FTP_USERNAME }}
+         password: ${{ secrets.FTP_PASSWORD }}
+
       - name: Checkout Levilde-Luminia-Wiki
         uses: actions/checkout@main
         with:
@@ -51,17 +58,16 @@ jobs:
           cd ${{ github.workspace }}
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git add .
+          git add -A
           git commit -m "docs: update documentation"
           git push origin main
 
-      - name: Deploy to Retinbox Web Hosting
-        uses: rthsoftware/host-auto-deploy@master
-        env:
-          RTH_API_KEY: ${{ secrets.RTH_API_KEY }}
+      - name: Upload files to FTP Server
+        uses: SamKirkland/FTP-Deploy-Action@master
         with:
-          site: "levilde-luminia-wiki"  # 修改 example 为您的网站名称
-          outdir: "."  # 修改 dist 为您的构建输出目录
+         server: ${{ secrets.FTP_SERVER }}
+         username: ${{ secrets.FTP_USERNAME }}
+         password: ${{ secrets.FTP_PASSWORD }}
 
       - name: Delete old workflow run
         uses: Mattraks/delete-workflow-runs@main
