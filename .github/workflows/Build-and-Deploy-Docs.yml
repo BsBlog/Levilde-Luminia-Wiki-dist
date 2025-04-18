@@ -58,7 +58,7 @@ jobs:
           git push origin main
           
       - name: Deploy via Wrangler
-        uses: cloudflare/wrangler-action@main
+        uses: cloudflare/wrangler-action@latest
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
