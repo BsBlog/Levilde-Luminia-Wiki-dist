@@ -56,6 +56,13 @@ jobs:
           git add -A
           git commit -m "docs: update documentation"
           git push origin main
+          
+      - name: Deploy via Wrangler
+        uses: cloudflare/wrangler-action@main
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy ${{ github.workspace }} --project-name=levilde-luminia-wiki-dist
 
       - name: Delete old workflow run
         uses: Mattraks/delete-workflow-runs@main
