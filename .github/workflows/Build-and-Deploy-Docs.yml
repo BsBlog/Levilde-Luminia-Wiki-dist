@@ -36,10 +36,17 @@ jobs:
         uses: pnpm/action-setup@master
         with:
           version: latest
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: latest
+          check-latest: true
+          cache: pnpm
           
       - name: Install dependencies
         working-directory: Levilde-Luminia-Wiki
-        run: pnpm install
+        run: pnpm install --frozen-lockfile
 
       - name: Build docs
         working-directory: Levilde-Luminia-Wiki
