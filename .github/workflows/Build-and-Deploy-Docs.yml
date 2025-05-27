@@ -22,7 +22,7 @@ jobs:
           git config --local user.name "github-actions[bot]"
           ls -A | grep -v "\.git" | grep -v "\.github" | xargs rm -rf
           git add -A
-          git commit -m "docs: Delete old files"
+          git commit -m "Delete old files"
           git push origin main
 
       - name: Checkout Levilde-Luminia-Wiki
@@ -60,7 +60,7 @@ jobs:
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           git add -A
-          git commit -m "docs: update documentation"
+          git commit -m "Update docs"
           git push origin main
           
       - name: Deploy via Wrangler
